@@ -9,5 +9,5 @@ const express = require('express');
 const quickfixtureMiddleware = require('quickfixtureMiddleware');
 
 const app = express();
-app.use(fixtureMiddleware('./fixtures'));
+app.use(quickfixtureMiddleware('./fixtures'));
 ```
