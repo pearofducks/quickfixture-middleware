@@ -2,6 +2,7 @@ const test = require('ava')
 const express = require('express')
 const request = require('supertest')
 const quickfixtureMiddleware = require('./index.js')
+const path = require('path')
 
 test.beforeEach(t => {
   t.context.server = express()
@@ -43,4 +44,18 @@ test('it ignores POSTs using default function', async t => {
   const postRes = await request(t.context.server)
     .post('/post-test')
   t.is(postRes.status, 418)
+})
+test('it accepts a custom function', async t => {
+  const instance = quickfixtureMiddleware('./fixtures', ({req, fixturesDir}) => {
+    if (req.method === 'POST') return path.join(fixturesDir, 'foo--bar__baz=buz.json')
+  })
+  t.context.server.use(instance)
+  t.context.server.post('/post-test', (req, res, next) => res.sendStatus(418))
+
+  const getRes = await request(t.context.server)
+    .get('/post-test')
+  t.is(getRes.status, 404)
+  const postRes = await request(t.context.server)
+    .post('/post-test')
+  t.is(postRes.status, 200)
 })
