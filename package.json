@@ -1,0 +1,28 @@
+{
+  "name": "quickfixture-middleware",
+  "version": "1.0.0",
+  "description": "quickly setup fixtures for express",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pearofducks/quickfixture-middleware.git"
+  },
+  "keywords": [ "express", "middleware", "fixtures" ],
+  "author": "Dave Honneffer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pearofducks/quickfixture-middleware/issues"
+  },
+  "homepage": "https://github.com/pearofducks/quickfixture-middleware#readme",
+  "dependencies": {
+    "debug": "^3.1.0"
+  },
+  "devDependencies": {
+    "ava": "^1.0.0-beta.3",
+    "express": "^4.16.3",
+    "supertest": "^3.0.0"
+  }
+}
