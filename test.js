@@ -59,3 +59,18 @@ test('it accepts a custom function', async t => {
     .post('/post-test')
   t.is(postRes.status, 200)
 })
+test('it accepts a custom function that returns a fixture-literal', async t => {
+  const instance = quickfixtureMiddleware('./fixtures', ({req, fixturesDir}) => {
+    if (req.method === 'POST') return { 'foo': 'bar' }
+  })
+  t.context.server.use(instance)
+  t.context.server.post('/post-test', (req, res, next) => res.sendStatus(418))
+
+  const getRes = await request(t.context.server)
+    .get('/post-test')
+  t.is(getRes.status, 404)
+  const postRes = await request(t.context.server)
+    .post('/post-test')
+  t.is(postRes.status, 200)
+  t.deepEqual(postRes.body, { 'foo': 'bar' })
+})

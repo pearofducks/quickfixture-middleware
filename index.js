@@ -40,6 +40,8 @@ function quickfixtureMiddleware(directory, matcherFunction=defaultMatcher) {
 
     debug('Responding with fixture:', fixture);
 
+    if (typeof fixture === 'object') return res.json(fixture);
+
     try {
       await access(fixture);
       const fixtureStat = await stat(fixture);
