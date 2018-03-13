@@ -9,7 +9,8 @@ an express middleware built for getting fixtures up in a quick and flexible mann
 ```javascript
 const express = require('express');
 const quickfixtureMiddleware = require('quickfixtureMiddleware');
+const path = require('path');
 
 const app = express();
-app.use(quickfixtureMiddleware('./fixtures'));
+app.use(quickfixtureMiddleware(path.resolve(__dirname, './fixtures')));
 ```
